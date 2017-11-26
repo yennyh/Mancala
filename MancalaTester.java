@@ -36,6 +36,7 @@ public class MancalaTester{
     	marbles.addItem("3");
     	marbles.addItem("4");
     	style.addItem("Rectangles");
+    	style.addItem("Circles");
     	options.add(style);
     	options.add(marbles);
     	
@@ -64,9 +65,24 @@ public class MancalaTester{
 		public void actionPerformed (ActionEvent e){
 			start.setVisible(false);
 	        RectangularStyle rS=new RectangularStyle();
+	        CircularStyle cS=new CircularStyle();
 	        if(style.getSelectedItem().toString().equals("Rectangles"))
 	        {
 	        	Board b=new Board(rS);
+	        	BoardView bV=new BoardView(b);
+		        b.addChangeListener(bV);
+		        if(marbles.getSelectedItem().toString().equals("3"))
+		        {
+		        	b.fillBoard(3);
+		        }
+		        else
+		        {
+		        	b.fillBoard(4);
+		        }
+	        }
+	        else
+	        {
+	        	Board b=new Board(cS);
 	        	BoardView bV=new BoardView(b);
 		        b.addChangeListener(bV);
 		        if(marbles.getSelectedItem().toString().equals("3"))
