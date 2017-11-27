@@ -1,22 +1,21 @@
 import java.awt.Shape;
 
-/** 
- * This interface contains the methods pertaining to functionality for game display
- * 
+/**
+ * Models a BoardStyle interface for strategy classes: RegularStyle &
+ * CircularStyle.
  */
 
-public interface BoardStyle {
+public interface BoardStyle {	
     /**
-     * Returns the shape of the pit to use according to the specifications
-     * of the class implementing this interface.
-     * @return a Shape object of the pit
+     * Gets the chosen style for the pit.
+     * @return the pit's shape
      */
 	public Shape getPit();
+	
     /**
-     * Returns the shape of the mancala to use according to the specifications
-     * of the class implementing this interface.
-     * @return a Shape object of the mancala
+     * Gets the chosen style for the mancala.
+     * @param player the player
+     * @return the mancala's shape
      */
-	public Shape getMancala(Player p);
-
+	public Shape getMancala(int player);
 }
