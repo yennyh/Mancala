@@ -4,115 +4,106 @@ import java.awt.Shape;
 import javax.swing.JComponent;
 
 /** 
- * This class contains the methods pertaining to functionality for the game and 
- * the data for a given configuration and moment of gameplay.
- * 
+ * Models a Pit class to initializes pits on board and marbles within
+ * as data changes.
  */
 
 public class Pit extends JComponent{
 	
 	int marbles;
-	int location;
-	Player player;
+	int pitIndex;
+	int player;
 	BoardStyle style;
 	
 	/**
-     * Pit class constructor - creates a pit with the given parameters
-     * @param n - the number of marbles to initialize the pit with
-     * @param index - the location of the mancala
-     * @param player - the Player this mancala belongs to
-     * @param sty - a concrete implementation of BoardStyle determining
-     * the shape of the pits to be used in the game
+     * Constructor for pits.
+     * @param marbles the chosen number of marbles to start with
+     * @param pitIndex the index of each pit
+     * @param player the player's turn
+     * @param style the chosen board style to start with
      */        
-	public Pit (int n, int index, Player play, BoardStyle sty){
-		marbles = n;
-		location = index;
-		player = play;
-		style = sty;     
+	public Pit (int marbles, int pitIndex, int player, BoardStyle style){
+		this.marbles = marbles;
+		this.pitIndex = pitIndex;
+		this.player = player;
+		this.style = style;     
 	}
 	
 	/**
-	 *Get the player the pit belongs to
-	 *@return the pit's player
+	 * Gets the player's turn.
+	 * @return the player's turn
 	 */
-	public Player getPlayer(){
+	public int getPlayer(){
 		return player;
 	}
 
 	/**
-	 *Change the number of marbles in the current pit
-	 *@param n number of marbles to be set to
+	 * Sets the number of marbles in the current pit.
+	 * @param marbles the number of marbles
 	 */
-	public void setMarbles(int n){
-		marbles = n;
+	public void setMarbles(int marbles){
+		this.marbles = marbles;
 	}
 	
 	/**
-	 *Get the number of marbles in the current pit
-	 *@return the pit's marbles
+	 * Gets the number of marbles in the current pit.
+	 * @return the number of marbles
 	 */
 	public int getMarbles(){
 		return marbles;
 	}
 	
 	/**
-	 *Get the index or location of each pit
-	 *@return the location of each pit
+	 * Gets the index of each pit.
+	 * @return the index of each pit
 	 */
 	public int getIndex(){
-		return location;
+		return pitIndex;
 	}
 	
 	/**
-	 *Check if the pit is empty or not
-	 *@return true if the pit is empty and false otherwise
+	 * Checks if the pit is empty or not.
+	 * @return true if the pit is empty, otherwise false
 	 */
-	public boolean isEmpty(){
-		if(marbles == 0)
+	public boolean isEmpty() {
+		if (marbles > 0){
 			return true;
-		else
-			return false;
+		}
+		return false;
+	}
+
+	/**
+	 * Gets the style of the board.
+	 * @return the style of the board
+	 */
+	public BoardStyle getStyle() {
+		return style;
+	}
+
+	/**
+	 * Gets the style of the pit to draw.
+	 * @param style the style of the pit
+	 * @return the chose style for the pit
+	 */
+	public Shape drawPit(BoardStyle style){
+		return style.getPit();
 	}
 	
 	/**
-	 *Get the style of the board, i.e. circles or rectangles
-	 *@return the style of the board
+	 * Draws the number of marbles for each pit.
+	 *@param g graphics context
 	 */
-	public BoardStyle getStyle(){
-            return style;
-    }
-	
-	/**
-	 *Get the shape of the pit to be drawn
-	 *@param b - the board style determining the shape
-	 *@return the Shape based on the board style
-	 */
-	public Shape drawPit(BoardStyle b){
-		return b.getPit();
-	}
-	
-	/**
-	 *Get the player the pit belongs to
-	 *@param g graphics object used to draw shape
-	 */
-	public void paintComponent(Graphics g){
-        super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(this.drawPit(style));	
-		int shapeHeight=this.drawPit(style).getBounds().height;
-		int shapeWidth=this.drawPit(style).getBounds().width;
-		int col = shapeWidth/2-5;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.draw(this.drawPit(style));
+		int marbleWidth = this.drawPit(style).getBounds().width;
+		int col = marbleWidth / 2 - 5;
 		int y = 0;
-		int row = shapeHeight/2-5;
-		int x = 0;
-		for(int i = 0; i< getMarbles(); i++){
-			if(y < shapeHeight){
-				g2.drawOval(col,y, 10,10);
-				y+= 10;				
-			}
-			else{
-			g2.drawOval(x,row, 10,10);
-			x += 10;
+		for (int i = 0; i < getMarbles(); i++) {
+			if (y < marbleWidth) {
+				g2.drawOval(col, y, 10, 10);
+				y += 10;
 			}
 		}
 	}
