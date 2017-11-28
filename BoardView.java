@@ -27,6 +27,7 @@ public class BoardView implements ChangeListener {
 		pits = b.getData();
 		JFrame frame = new JFrame("Mancala Game");
 		frame.setSize(1200, 600);
+		frame.setResizable(false);
 		JButton undoButton = new JButton("Undo");
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
