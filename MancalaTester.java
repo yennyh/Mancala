@@ -6,94 +6,62 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
- * Using timer to have the car reappear on the left after it disappears.
- * @author yen_my_huynh 4.22
+ * Models a MancalaTester class to gets the options and calls on other classes
+ * to display and run the mancala board.
  */
-public class MancalaTester{
-	
-	static JComboBox marbles;
-	static JComboBox style;
-	static JButton submit;
-	static JFrame start;
-	static JLabel choose;
-	static JPanel options;
-	
-	
-    public static void main(String[] args){
-    	
-    	start = new JFrame("Start Mancala");
-    	start.setSize(400, 200);
-    	start.setLayout(new BorderLayout());
-    	marbles = new JComboBox();
-    	style = new JComboBox();
-    	submit = new JButton("Submit");
-    	choose = new JLabel("Please select a style and # of marbles to begin game!");
-    	options = new JPanel();
-    	
-    	
-    	//Populate options
-    	marbles.addItem("3");
-    	marbles.addItem("4");
-    	style.addItem("Rectangles");
-    	style.addItem("Circles");
-    	options.add(style);
-    	options.add(marbles);
-    	
-    	//Register actionListeners for buttons
-    	submit.addActionListener(new submission());
-    	
-    	//Add components to the frame
-    	start.add(choose, BorderLayout.NORTH);
-    	start.add(options, BorderLayout.CENTER);
-    	start.add(submit, BorderLayout.SOUTH);
-    	start.setVisible(true);	
-    }
-    
-    
-    /** 
-     * This class contains the methods pertaining to gameplay for the game and 
-     * an action to be performed for the data for a given configuration.
-     * 
-     */
-    static class submission implements ActionListener{
-    	
-    	/**
-    	 *Based on user selection, sets up a new board
-    	 *@param e - Action event which occurred
-    	 */
-		public void actionPerformed (ActionEvent e){
-			start.setVisible(false);
-	        RectangularStyle rS=new RectangularStyle();
-	        CircularStyle cS=new CircularStyle();
-	        if(style.getSelectedItem().toString().equals("Rectangles"))
-	        {
-	        	Board b=new Board(rS);
-	        	BoardView bV=new BoardView(b);
-		        b.addChangeListener(bV);
-		        if(marbles.getSelectedItem().toString().equals("3"))
-		        {
-		        	b.fillBoard(3);
-		        }
-		        else
-		        {
-		        	b.fillBoard(4);
-		        }
-	        }
-	        else
-	        {
-	        	Board b=new Board(cS);
-	        	BoardView bV=new BoardView(b);
-		        b.addChangeListener(bV);
-		        if(marbles.getSelectedItem().toString().equals("3"))
-		        {
-		        	b.fillBoard(3);
-		        }
-		        else
-		        {
-		        	b.fillBoard(4);
-		        }
-	        }			
-		}
+
+public class MancalaTester {
+	public static void main(String[] args) {
+		String[] styleString = { "Rectangular", "Circular" };
+		String[] marbleString = { "3", "4" };
+		JFrame frame = new JFrame("Mancala Game");
+		JComboBox style = new JComboBox(styleString);
+		JComboBox startingMarbles = new JComboBox(marbleString);
+		JLabel instruction = new JLabel("Please select a style and number of marbles to start the game.");
+		JButton start = new JButton("Start");
+
+		// Puts in options
+		JPanel options = new JPanel();
+		options.add(style);
+		options.add(startingMarbles);
+
+		// activates action listener.
+		start.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				CircleStyle cS = new CircleStyle();
+				RectangleStyle rS = new RectangleStyle();
+				if (style.getSelectedItem().toString().equals("Rectangular")) {
+					Board b = new Board(rS);
+					BoardView bV = new BoardView(b);
+					b.attach(bV);
+					if (startingMarbles.getSelectedItem().toString().equals("3")) {
+						b.fillBoard(3);
+					} else {
+						b.fillBoard(4);
+					}
+				} else {
+					Board b = new Board(cS);
+					BoardView bV = new BoardView(b);
+					b.attach(bV);
+					if (startingMarbles.getSelectedItem().toString().equals("3")) {
+						b.fillBoard(3);
+					} else {
+						b.fillBoard(4);
+					}
+				}
+			}
+		});
+
+		// Adds components to the frame
+		frame.setSize(400, 200);
+		frame.setLayout(new BorderLayout());
+		frame.add(instruction, BorderLayout.NORTH);
+		frame.add(options, BorderLayout.CENTER);
+		frame.add(start, BorderLayout.SOUTH);
+		frame.setVisible(true);
 	}
 }
+
