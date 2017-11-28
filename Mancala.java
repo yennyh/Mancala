@@ -2,83 +2,80 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-
 /** 
- * This class contains the methods pertaining to functionality for the game and 
- * the data for a given configuration and moment of gameplay.
- * 
+ * Models a Mancala class to initializes mancalas on board and marbles within
+ * as data changes.
  */
 
 public class Mancala extends Pit {
     
 	/**
-     * Mancala class constructor - creates a mancala pit with the given parameters
-     * @param n - the number of marbles to initialize the pit with
-     * @param index - the location of the mancala
-     * @param player - the Player this mancala belongs to
-     * @param b - a concrete implementation of BoardStyle determining
-     * the shape of the pits to be used in the game
-     */
-    public Mancala(int n, int index, Player player, BoardStyle b) {
-        super(n, index, player, b);
+     * Constructor for mancalas.
+     * @param marbles the number of marbles to start with
+     * @param mancalaIndex the index of each pit
+     * @param player the player's turn
+     * @param style the chosen board style to start with
+     */   
+    public Mancala(int marbles, int mancalaIndex, int player, BoardStyle b) {
+        super(marbles, mancalaIndex, player, b);
     }
     
     /**
-	 *Get the player the pit belongs to
-	 *@return the pit's player
+	 * Gets the player's turn.
+	 * @return the player's turn
 	 */
-    public Player getPlayer() {
+    public int getPlayer() {
         return super.getPlayer();
     }
     
     /**
-	 *Change the number of marbles in the current pit
-	 *@param n number of marbles to be set to
+	 * Sets the number of marbles in the current mancala.
+	 * @param n the number of marbles to be set to
 	 */
-    public void setMarbles(int n) {
-        super.setMarbles(n);
+    public void setMarbles(int marbles) {
+        super.setMarbles(marbles);
     }
     
     /**
-	 *Get the number of marbles in the current pit
-	 *@return the pit's marbles
+	 * Gets the number of marbles in the current mancala
+	 * @return the number of mancala's marbles
 	 */
     public int getMarbles() {
         return super.getMarbles();
     }
     
     /**
-	 *Get the index or location of each pit
-	 *@return the location of each pit
+	 * Gets the index of the mancala.
+	 * @return the index of each mancala
 	 */
     public int getIndex() {
         return super.getIndex();
     }
     
     /**
-	 *Check if the pit is empty or not
-	 *@return true if the pit is empty and false otherwise
+	 * Checks if the mancala is empty or not.
+	 * @return true if the mancala is empty, otherwise false
 	 */
     public boolean isEmpty() {
         return super.isEmpty();
     }
 
     /**
-	 *Get the shape of the pit to be drawn
-	 *@param b - the board style determining the shape
-	 *@return the Shape based on the board style
+	 * Gets the style of the mancala to draw. 
+	 * @param style the style of the mancala
+	 * @return the chose style for the mancala
 	 */
-    public Shape drawPit(BoardStyle b) {
-        return b.getMancala(getPlayer());
+    public Shape drawHolder(BoardStyle style) {
+        return style.getMancala(getPlayer());
     }
     
     /**
-	 *Get the player the pit belongs to
-	 *@param g graphics object used to draw shape
+	 * Draws the number of marbles for each mancala.
+	 * @param g the graphics context
 	 */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.draw(this.drawPit(getStyle()));
+        g2.draw(this.drawHolder(getStyle()));
     }
 }
