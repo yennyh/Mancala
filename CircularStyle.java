@@ -5,7 +5,7 @@ import java.awt.geom.Ellipse2D;
  * Models a strategy class for circular style. 
  */
 
-public class CircleStyle implements BoardStyle{
+public class CircularStyle implements BoardStyle{
 
 	/**
 	 * Creates a circular pit.
