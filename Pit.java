@@ -85,25 +85,35 @@ public class Pit extends JComponent{
 	 * @param style the style of the pit
 	 * @return the chose style for the pit
 	 */
-	public Shape drawPit(BoardStyle style){
+	public Shape drawHolder(BoardStyle style){
 		return style.getPit();
 	}
 	
 	/**
 	 * Draws the number of marbles for each pit.
-	 *@param g graphics context
+	 *@param g the graphics context
 	 */
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.draw(this.drawPit(style));
-		int marbleWidth = this.drawPit(style).getBounds().width;
-		int col = marbleWidth / 2 - 5;
+	public void paintComponent(Graphics g)
+	{
+        super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+		g2.draw(this.drawHolder(style));	
+		int shapeWidth=this.drawHolder(style).getBounds().width;
+		int x = 0;
 		int y = 0;
-		for (int i = 0; i < getMarbles(); i++) {
-			if (y < marbleWidth) {
-				g2.drawOval(col, y, 10, 10);
-				y += 10;
+		int row = shapeWidth/2-5;
+		int col = shapeWidth/2-5;
+		
+		for(int i = 0; i< getMarbles(); i++)
+		{
+			if( y < shapeWidth)
+			{
+				g2.drawOval(col,y, 10,10);
+				y+= 10;				
+			}
+			else{
+			g2.drawOval(x,row, 10,10);
+			x += 10;
 			}
 		}
 	}
