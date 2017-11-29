@@ -31,8 +31,8 @@ public class MancalaTester {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				CircleStyle cS = new CircleStyle();
-				RectangleStyle rS = new RectangleStyle();
+				CircularStyle cS = new CircularStyle();
+				RectangularStyle rS = new RectangularStyle();
 				if (style.getSelectedItem().toString().equals("Rectangular")) {
 					Board b = new Board(rS);
 					BoardView bV = new BoardView(b);
