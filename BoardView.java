@@ -9,87 +9,87 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-/** 
- * This class contains the methods pertaining to display for the game and 
- * the data for a given configuration and moment of gameplay.
- * 
+/**
+ * Models a Board class to view the state of the board.
  */
 
 public class BoardView implements ChangeListener {
 	private final Board board;
 	private ArrayList<Pit> pits;
 	final JTextField playerTurn;
-	
+
 	/**
-     * BoardView class constructor - creates a display based on the current board
-     * @param b - the board object to reference when updating this view.  
-     */
+	 * Constructor for Board - creates and updates the board.
+	 * @param b the board to be view
+	 */
 	public BoardView(Board b) {
 		board = b;
 		pits = b.getData();
-		JFrame frame = new JFrame("Mancala");
+		JFrame frame = new JFrame("Mancala Game");
 		frame.setSize(1200, 600);
 		JButton undoButton = new JButton("Undo");
 		undoButton.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				board.undo();
 			}
 		});
-		final  JPanel grid= new JPanel(new GridLayout(0,8));
-		grid.add(b.getMancala(Player.TWO));
-		for(int i=0;i<6;i++){
-			JPanel ingrid = new JPanel(new GridLayout(2,0));
-			final Pit toppit = pits.get(12-i);
+		final JPanel grid = new JPanel(new GridLayout(0, 8));
+		grid.add(b.getMancala(2));
+		for (int i = 0; i < 6; i++) {
+			JPanel ingrid = new JPanel(new GridLayout(2, 0));
+			final Pit toppit = pits.get(12 - i);
 			final Pit botpit = pits.get(i);
-			ingrid.add(toppit);//or some other empty component
+			ingrid.add(toppit);// or some other empty component
 			ingrid.add(botpit);
 			toppit.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+					super.mouseClicked(e); // To change body of generated
+											// methods, choose Tools |
+											// Templates.
 					board.choosePit(toppit);
 				}
 			});
 			botpit.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+					super.mouseClicked(e); // To change body of generated
+											// methods, choose Tools |
+											// Templates.
 					board.choosePit(botpit);
 				}
 			});
 			grid.add(ingrid);
 		}
-		grid.add(b.getMancala(Player.ONE));
+		grid.add(b.getMancala(1));
 		frame.add(undoButton, BorderLayout.NORTH);
 		frame.add(grid, BorderLayout.CENTER);
-		playerTurn=new JTextField(board.getPlayer().toString());
+		playerTurn = new JTextField(board.getPlayer());
 		playerTurn.setHorizontalAlignment(JTextField.CENTER);
-		frame.add(playerTurn,BorderLayout.SOUTH);
+		frame.add(playerTurn, BorderLayout.SOUTH);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
+
 	/**
-     * Repaints when the state of the board is changed
-     * @param e - a change event
-     */
+	 * Repaints the state of the board as data changes.
+	 * @param e the change event
+	 */
 	public void stateChanged(ChangeEvent e) {
-		pits=board.getData();
-		for (Pit pit:pits){
+		pits = board.getData();
+		for (Pit pit : pits) {
 			pit.repaint();
 		}
-		playerTurn.setText(board.getPlayer().toString());
-		if(board.gameOver()){
-			String score = "Final score: Player 1 "+pits.get(6).getMarbles();
-			score+=", Player 2 "+pits.get(13).getMarbles()+ ". ";
-			if(pits.get(6).getMarbles()>pits.get(13).getMarbles())
-				playerTurn.setText(score+"Player 1 Wins!");
-			else if(pits.get(6).getMarbles()<pits.get(13).getMarbles())
-				playerTurn.setText(score+"Player 2 Wins!");
+		playerTurn.setText(String.valueOf(board.getPlayer()));
+		if (board.gameOver()) {
+			String score = "Final score: Player 1: " + pits.get(6).getMarbles();
+			score += ", Player 2: " + pits.get(13).getMarbles() + ". ";
+			if (pits.get(6).getMarbles() > pits.get(13).getMarbles())
+				playerTurn.setText(score + "\n" + "Player 1 Wins!");
+			else if (pits.get(6).getMarbles() < pits.get(13).getMarbles())
+				playerTurn.setText(score + "\n" + "Player 2 Wins!");
 			else
-				playerTurn.setText(score+"Draw!");
+				playerTurn.setText(score + "\n" + "Draw!");
 		}
 	}
 }
