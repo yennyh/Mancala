@@ -39,10 +39,12 @@ public class MancalaTester {
 					b.attach(bV);
 					if (startingMarbles.getSelectedItem().toString().equals("3")) {
 						b.fillBoard(3);
-					} else {
+					} 
+					else {
 						b.fillBoard(4);
 					}
-				} else {
+				} 
+				else {
 					Board b = new Board(cS);
 					BoardView bV = new BoardView(b);
 					b.attach(bV);
@@ -62,6 +64,7 @@ public class MancalaTester {
 		frame.add(options, BorderLayout.CENTER);
 		frame.add(start, BorderLayout.SOUTH);
 		frame.setVisible(true);
+		frame.setResizable(false);
 	}
 }
 
