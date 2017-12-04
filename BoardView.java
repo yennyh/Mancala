@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,36 +27,23 @@ public class BoardView implements ChangeListener {
 		pits = b.getData();
 		JFrame frame = new JFrame("Mancala Game");
 		frame.setSize(1200, 600);
-		frame.setResizable(false);
 		JButton undoButton = new JButton("Undo");
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				board.undo();
 			}
 		});
-
 		final JPanel grid = new JPanel(new GridLayout(0, 8));
 		JPanel leftGrid = new JPanel(new BorderLayout());
 		leftGrid.add(b.getMancala(2), BorderLayout.CENTER);
-		leftGrid.add(new JLabel("Mancala B", SwingConstants.LEFT), BorderLayout.NORTH);
+		leftGrid.add(new JLabel(" Player 1's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
 		grid.add(leftGrid);
 		for (int i = 0; i < 6; i++) {
 			JPanel ingrid = new JPanel(new GridLayout(2, 0));
 			final Pit toppit = pits.get(12 - i);
 			final Pit botpit = pits.get(i);
-
-			JPanel gridOne = new JPanel(new BorderLayout());
-			gridOne.add(toppit, BorderLayout.CENTER);// or some other empty component
-			JLabel topLabel = new JLabel("B" + (12-i-6), SwingConstants.LEFT);
-			gridOne.add(topLabel, BorderLayout.NORTH);
-
-			JPanel gridTwo = new JPanel(new BorderLayout());
-			gridTwo.add(botpit, BorderLayout.CENTER);
-			JLabel botLabel = new JLabel("A" + (i+1), SwingConstants.LEFT);
-			gridTwo.add(botLabel, BorderLayout.NORTH);
-			ingrid.add(gridOne);
-			ingrid.add(gridTwo);
-
+			ingrid.add(toppit);// or some other empty component
+			ingrid.add(botpit);
 			toppit.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -74,12 +62,11 @@ public class BoardView implements ChangeListener {
 					board.choosePit(botpit);
 				}
 			});
-
 			grid.add(ingrid);
 		}
 		JPanel rightGrid = new JPanel(new BorderLayout());
 		rightGrid.add(b.getMancala(1), BorderLayout.CENTER);
-		rightGrid.add(new JLabel("Mancala A", SwingConstants.LEFT), BorderLayout.NORTH);
+		rightGrid.add(new JLabel(" Player 2's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
 		grid.add(rightGrid);
 		frame.add(undoButton, BorderLayout.NORTH);
 		frame.add(grid, BorderLayout.CENTER);
@@ -104,11 +91,11 @@ public class BoardView implements ChangeListener {
 			String score = "Final score: Player 1: " + pits.get(6).getMarbles();
 			score += ", Player 2: " + pits.get(13).getMarbles() + ". ";
 			if (pits.get(6).getMarbles() > pits.get(13).getMarbles())
-				playerTurn.setText(score + "\n" + "Player 1 Wins!");
+				playerTurn.setText(score + "Player 1 Wins!");
 			else if (pits.get(6).getMarbles() < pits.get(13).getMarbles())
-				playerTurn.setText(score + "\n" + "Player 2 Wins!");
+				playerTurn.setText(score + "Player 2 Wins!");
 			else
-				playerTurn.setText(score + "\n" + "Draw!");
+				playerTurn.setText(score + "Draw!");
 		}
 	}
 }
