@@ -14,7 +14,7 @@ public class Mancala extends Pit {
      * @param marbles the number of marbles to start with
      * @param mancalaIndex the index of each pit
      * @param player the player's turn
-     * @param style the chosen board style to start with
+     * @param b the chosen board style to start with
      */   
     public Mancala(int marbles, int mancalaIndex, int player, BoardStyle b) {
         super(marbles, mancalaIndex, player, b);
@@ -30,7 +30,7 @@ public class Mancala extends Pit {
     
     /**
 	 * Sets the number of marbles in the current mancala.
-	 * @param n the number of marbles to be set to
+	 * @param marbles the number of marbles to be set to
 	 */
     public void setMarbles(int marbles) {
         super.setMarbles(marbles);
