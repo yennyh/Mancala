@@ -6,6 +6,8 @@ import javax.swing.JComponent;
 /** 
  * Models a Pit class to initializes pits on board and marbles within
  * as data changes.
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17
  */
 
 public class Pit extends JComponent{
@@ -60,17 +62,6 @@ public class Pit extends JComponent{
 	public int getIndex(){
 		return pitIndex;
 	}
-	
-	/**
-	 * Checks if the pit is empty or not.
-	 * @return true if the pit is empty, otherwise false
-	 */
-	public boolean isEmpty() {
-		if (marbles > 0){
-			return true;
-		}
-		return false;
-	}
 
 	/**
 	 * Gets the style of the board.
@@ -91,18 +82,18 @@ public class Pit extends JComponent{
 	
 	public void paintComponent(Graphics g)
 	{
-        super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(this.drawHolder(style));	
-		int shapeHeight=this.drawHolder(style).getBounds().height;
-		int shapeWidth=this.drawHolder(style).getBounds().width;
-		int col = shapeWidth/2-5;
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.draw(this.drawHolder(style));
+		int shapeHeight = this.drawHolder(style).getBounds().height;
+		int shapeWidth = this.drawHolder(style).getBounds().width;
+		int col = shapeWidth / 2 - 5;
+		int row = shapeHeight / 2 - 5;
 		int y = 0;
-		int row = shapeHeight/2-5;
 		int x = 0;
-		for(int i = 0; i< getMarbles(); i++)
-		{
-			if( y< shapeHeight)
+		// to line the marbles in orderly pattern
+		for (int i = 0; i < getMarbles(); i++) {
+			if (y < shapeHeight)
 			{
 				g2.drawOval(col,y, 10,10);
 				y+= 10;				
