@@ -2,10 +2,12 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Models a strategy class for rectangular style. 
+ * Models a strategy class for rectangular style.
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17 
  */
 
-public class RectangularStyle implements BoardStyle {
+public class RectangleStyle implements BoardStyle {
 
 	/**
 	 * Creates a rectangular pit.
