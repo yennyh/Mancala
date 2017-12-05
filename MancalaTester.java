@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 /**
  * Models a MancalaTester class to gets the options and calls on other classes
  * to display and run the mancala board.
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17
  */
 
 public class MancalaTester {
@@ -31,20 +33,18 @@ public class MancalaTester {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				CircularStyle cS = new CircularStyle();
-				RectangularStyle rS = new RectangularStyle();
+				CircleStyle cS = new CircleStyle();
+				RectangleStyle rS = new RectangleStyle();
 				if (style.getSelectedItem().toString().equals("Rectangular")) {
 					Board b = new Board(rS);
 					BoardView bV = new BoardView(b);
 					b.attach(bV);
 					if (startingMarbles.getSelectedItem().toString().equals("3")) {
 						b.fillBoard(3);
-					} 
-					else {
+					} else {
 						b.fillBoard(4);
 					}
-				} 
-				else {
+				} else {
 					Board b = new Board(cS);
 					BoardView bV = new BoardView(b);
 					b.attach(bV);
@@ -67,4 +67,3 @@ public class MancalaTester {
 		frame.setResizable(false);
 	}
 }
-
