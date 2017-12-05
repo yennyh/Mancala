@@ -36,14 +36,24 @@ public class BoardView implements ChangeListener {
 		final JPanel grid = new JPanel(new GridLayout(0, 8));
 		JPanel leftGrid = new JPanel(new BorderLayout());
 		leftGrid.add(b.getMancala(2), BorderLayout.CENTER);
-		leftGrid.add(new JLabel(" Player 1's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
+		leftGrid.add(new JLabel(" Player 2's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
 		grid.add(leftGrid);
 		for (int i = 0; i < 6; i++) {
 			JPanel ingrid = new JPanel(new GridLayout(2, 0));
+			JPanel centerGrid2 = new JPanel(new BorderLayout());
+			JPanel centerGrid1 = new JPanel(new BorderLayout());
 			final Pit toppit = pits.get(12 - i);
 			final Pit botpit = pits.get(i);
+			String player2Pit = "   Player 2's Pit: " + (6-i);
+			String player1Pit = "   Player 1's Pit: " + (i+1);
 			ingrid.add(toppit);// or some other empty component
 			ingrid.add(botpit);
+			centerGrid2.add(toppit, BorderLayout.CENTER);
+			centerGrid2.add(new JLabel(player2Pit, SwingConstants.LEFT), BorderLayout.NORTH);
+			ingrid.add(centerGrid2);	
+			centerGrid1.add(botpit, BorderLayout.CENTER);
+			centerGrid1.add(new JLabel(player1Pit, SwingConstants.LEFT), BorderLayout.NORTH);
+			ingrid.add(centerGrid1);
 			toppit.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -66,12 +76,13 @@ public class BoardView implements ChangeListener {
 		}
 		JPanel rightGrid = new JPanel(new BorderLayout());
 		rightGrid.add(b.getMancala(1), BorderLayout.CENTER);
-		rightGrid.add(new JLabel(" Player 2's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
+		rightGrid.add(new JLabel(" Player 1's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
 		grid.add(rightGrid);
 		frame.add(undoButton, BorderLayout.NORTH);
 		frame.add(grid, BorderLayout.CENTER);
 		playerTurn = new JTextField(board.getPlayer());
 		playerTurn.setHorizontalAlignment(JTextField.CENTER);
+		playerTurn.setEditable(false);
 		frame.add(playerTurn, BorderLayout.SOUTH);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
