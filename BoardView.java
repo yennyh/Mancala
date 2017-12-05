@@ -11,6 +11,8 @@ import javax.swing.event.ChangeListener;
 
 /**
  * Models a Board class to view the state of the board.
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17
  */
 
 public class BoardView implements ChangeListener {
@@ -40,40 +42,39 @@ public class BoardView implements ChangeListener {
 		grid.add(leftGrid);
 		for (int i = 0; i < 6; i++) {
 			JPanel ingrid = new JPanel(new GridLayout(2, 0));
-			JPanel centerGrid2 = new JPanel(new BorderLayout());
-			JPanel centerGrid1 = new JPanel(new BorderLayout());
-			final Pit toppit = pits.get(12 - i);
-			final Pit botpit = pits.get(i);
+			final Pit topPit = pits.get(12 - i);
+			final Pit botPit = pits.get(i);
 			String player2Pit = "   Player 2's Pit: " + (6-i);
 			String player1Pit = "   Player 1's Pit: " + (i+1);
-			ingrid.add(toppit);// or some other empty component
-			ingrid.add(botpit);
-			centerGrid2.add(toppit, BorderLayout.CENTER);
+			// displays the pits
+			ingrid.add(topPit);
+			ingrid.add(botPit);
+			// labels the pits for each player
+			JPanel centerGrid2 = new JPanel(new BorderLayout());
+			centerGrid2.add(topPit, BorderLayout.CENTER);
 			centerGrid2.add(new JLabel(player2Pit, SwingConstants.LEFT), BorderLayout.NORTH);
-			ingrid.add(centerGrid2);	
-			centerGrid1.add(botpit, BorderLayout.CENTER);
+			ingrid.add(centerGrid2);
+			JPanel centerGrid1 = new JPanel(new BorderLayout());
+			centerGrid1.add(botPit, BorderLayout.CENTER);
 			centerGrid1.add(new JLabel(player1Pit, SwingConstants.LEFT), BorderLayout.NORTH);
 			ingrid.add(centerGrid1);
-			toppit.addMouseListener(new MouseAdapter() {
-				@Override
+			
+			// to notify the view when a certain button is clicked.
+			topPit.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e); // To change body of generated
-											// methods, choose Tools |
-											// Templates.
-					board.choosePit(toppit);
+					super.mouseClicked(e); 
+					board.choosePit(topPit);
 				}
 			});
-			botpit.addMouseListener(new MouseAdapter() {
-				@Override
+			botPit.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e); // To change body of generated
-											// methods, choose Tools |
-											// Templates.
-					board.choosePit(botpit);
+					super.mouseClicked(e);
+					board.choosePit(botPit);
 				}
 			});
 			grid.add(ingrid);
 		}
+		// minor methods to refine the board view
 		JPanel rightGrid = new JPanel(new BorderLayout());
 		rightGrid.add(b.getMancala(1), BorderLayout.CENTER);
 		rightGrid.add(new JLabel(" Player 1's Mancala", SwingConstants.LEFT), BorderLayout.NORTH);
@@ -95,8 +96,8 @@ public class BoardView implements ChangeListener {
 	 */
 	public void stateChanged(ChangeEvent e) {
 		pits = board.getData();
-		for (Pit pit : pits) {
-			pit.repaint();
+		for (Pit p : pits) {
+			p.repaint();
 		}
 		playerTurn.setText(String.valueOf(board.getPlayer()));
 		if (board.gameOver()) {
