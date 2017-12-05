@@ -86,6 +86,7 @@ public class BoardView implements ChangeListener {
 		frame.add(playerTurn, BorderLayout.SOUTH);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 	}
 
 	/**
