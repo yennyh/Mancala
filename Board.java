@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
  * Models a Board class to gives the game functionalities,
  * keeps track of statues for both and checks who wins when game ends.
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17
  */
 public class Board {
 
@@ -343,12 +344,10 @@ public class Board {
 			return false;
 		}
 
-		if (undoCount == 3) {
+		if (undoCount >= 3) {
 			System.out.println("You've used all undo's attempts.");
 			return false;
 		}
 		return true;
 	}
-}
-
-   
+}  
