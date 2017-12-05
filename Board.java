@@ -349,14 +349,6 @@ public class Board {
 		}
 		return true;
 	}
-	
-	/**
-	 * Checks if the game have ended.
-	 * @return true if game's over, otherwise false
-	 */
-	public boolean getGameStatus() {
-		return gameOver();
-	}	
 }
 
    
