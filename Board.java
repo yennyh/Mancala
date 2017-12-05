@@ -54,8 +54,15 @@ public class Board {
 	 * Gets the current player's turn.
 	 * @return the current player's turn
 	 */
-	public int getPlayer() {
-		return player;
+	public String getPlayer() {
+		String turn = "";
+		if (player == 1){
+			turn =  "Player 1 --->";
+		}
+		else{
+			turn = "<--- Player 2";
+		}
+		return turn;
 	}
 	
 	/**
@@ -236,7 +243,7 @@ public class Board {
 	 */
 	public void undo() {
 		if (!canUndo()) {
-			System.out.println("You are not allowed to Undo");
+			System.out.println("You are not allowed to Undo anymore.");
 			return;
 		}
 
