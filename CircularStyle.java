@@ -3,9 +3,11 @@ import java.awt.geom.Ellipse2D;
 
 /** 
  * Models a strategy class for circular style. 
+ * @author Team Green: Yen Huynh, Samantha Ignacio, & Anthony Minaise
+ * 12/5/17
  */
 
-public class CircularStyle implements BoardStyle{
+public class CircleStyle implements BoardStyle{
 
 	/**
 	 * Creates a circular pit.
@@ -22,6 +24,5 @@ public class CircularStyle implements BoardStyle{
 	 */
 	public Shape getMancala(int player) {
 		return new Ellipse2D.Double(0, 0, 120, 400);
-
 	}
 }
